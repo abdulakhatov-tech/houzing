@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   imports: [Header, Footer, RouterModule],
   template: `
     <app-header />
-    <main class="h-[50vh]">
+    <main>
       <router-outlet />
     </main>
     <app-footer />

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
   {
@@ -34,7 +35,7 @@ export const routes: Routes = [
   // Redirect or 404 handling
   {
     path: '**',
-    loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),
+    component: NotFound,
     // pathMatch: 'full',
   },
 ];
