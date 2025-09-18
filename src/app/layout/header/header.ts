@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { menuItems } from '@shared/constants';
 import { IMenuItem } from '@shared/interfaces/global';
-import { MenuModal, MenuModalComponent } from './menu-modal/menu-modal';
+import { MenuModalComponent } from './menu-modal/menu-modal';
 
 @Component({
   selector: 'app-header',
