@@ -1,16 +1,18 @@
 import { Routes } from '@angular/router';
+
+import { Home } from './pages/home/home';
 import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/home/home').then((m) => m.Home),
-    title: 'Home',
+    component: Home,
+    title: 'Houzing',
   },
   {
     path: 'properties',
     loadComponent: () => import('./pages/properties/properties').then((m) => m.Properties),
-    title: 'Properties',
+    title: 'Houzing | Properties',
   },
   {
     path: 'auth',
@@ -18,24 +20,25 @@ export const routes: Routes = [
       {
         path: 'sign-up',
         loadComponent: () => import('./pages/auth/sign-up/sign-up').then((m) => m.SignUp),
-        title: 'Sign Up',
+        title: 'Houzing | Sign Up',
       },
       {
         path: 'sign-in',
         loadComponent: () => import('./pages/auth/sign-in/sign-in').then((m) => m.SignIn),
-        title: 'Sign In',
+        title: 'Houzing | Sign In',
       },
     ],
   },
   {
     path: 'contacts',
     loadComponent: () => import('./pages/contacts/contacts').then((m) => m.Contacts),
-    title: 'Contacts',
+    title: 'Houzing | Contacts',
   },
   // Redirect or 404 handling
   {
     path: '**',
     component: NotFound,
+    title: 'Houzing | Not Found',
     // pathMatch: 'full',
   },
 ];

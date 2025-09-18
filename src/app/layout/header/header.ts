@@ -32,6 +32,7 @@ import { MenuModalComponent } from './menu-modal/menu-modal';
             <li *ngFor="let item of menu">
               <a
                 [routerLink]="item.path"
+                [routerLinkActiveOptions]="{ exact: true }"
                 routerLinkActive="border-b-1 border-white font-semibold"
                 class="text-white text-[16px] font-normal hover:font-semibold hover:border-b-1 hover:border-white transition-all duration-300"
                 >{{ item.label }}</a

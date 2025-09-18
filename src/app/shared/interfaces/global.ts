@@ -20,3 +20,15 @@ export interface IFooterSection {
   items: IFooterLink[];
   socialMediaItems?: ISocialMediaItem[];
 }
+
+export interface IProperty {
+  _id: string;
+  title: string;
+  address: string;
+  beds: number;
+  baths: number;
+  garage: number;
+  area: number;
+  price: number;
+  image: string;
+}

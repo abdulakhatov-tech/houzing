@@ -19,6 +19,7 @@ import { IMenuItem, ISocialMediaItem } from '@shared/interfaces/global';
         <li *ngFor="let item of menu">
           <a
             [routerLink]="item.path"
+            [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="border-b-1 border-black font-semibold"
             class="text-black text-[16px] font-normal hover:font-semibold hover:border-b-1 hover:border-black transition-all duration-300"
             >{{ item.label }}</a

@@ -1,4 +1,4 @@
-import { IFooterSection, IMenuItem, ISocialMediaItem } from '@shared/interfaces/global';
+import { IFooterSection, IMenuItem, IProperty, ISocialMediaItem } from '@shared/interfaces/global';
 
 export const menuItems: IMenuItem[] = [
   { label: 'Home', path: '/' },
@@ -20,51 +20,75 @@ export const footerItems: IFooterSection[] = [
       {
         icon: 'assets/icons/location.svg',
         text: '329 Queensberry Street, North Melbourne VIC 3051, Australia.',
-        link: "https://maps.app.goo.gl/UkRvU6BRLNsMT4En7"
+        link: 'https://maps.app.goo.gl/UkRvU6BRLNsMT4En7',
       },
       {
         icon: 'assets/icons/phone.svg',
         text: '+1 123 456 7890',
-        link: 'tel:+11234567890'
+        link: 'tel:+11234567890',
       },
       {
         icon: 'assets/icons/email.svg',
         text: 'support@houzing.com',
-        link: 'mailto:support@houzing.com'
-      }
+        link: 'mailto:support@houzing.com',
+      },
     ],
-    socialMediaItems: socialMediaItems
+    socialMediaItems: socialMediaItems,
   },
   {
-    title: "Discover",
+    title: 'Discover',
     items: [
-      { text: "Chicago", link: 'https://maps.app.goo.gl/pQb1YuJyh1vW7VaG7'},
-      { text: "Los Angeles", link: 'https://maps.app.goo.gl/62zUVUTZSWkpN23F9'},
-      { text: "Miami", link: 'https://maps.app.goo.gl/FDHN1dKyMuBbvtYc8'},
-      { text: "New York", link: 'https://maps.app.goo.gl/LMcjMtNzqB4dkhD98'},
-      { text: "San Francisco", link: 'https://maps.app.goo.gl/QZGUkdN8JA8siNuS9'}
+      { text: 'Chicago', link: 'https://maps.app.goo.gl/pQb1YuJyh1vW7VaG7' },
+      { text: 'Los Angeles', link: 'https://maps.app.goo.gl/62zUVUTZSWkpN23F9' },
+      { text: 'Miami', link: 'https://maps.app.goo.gl/FDHN1dKyMuBbvtYc8' },
+      { text: 'New York', link: 'https://maps.app.goo.gl/LMcjMtNzqB4dkhD98' },
+      { text: 'San Francisco', link: 'https://maps.app.goo.gl/QZGUkdN8JA8siNuS9' },
+    ],
+  },
+  {
+    title: 'Lists by Category',
+    items: [
+      { text: 'Apartments', link: '/properties?category=apartment' },
+      { text: 'Condos', link: '/properties?category=condo' },
+      { text: 'Houses', link: '/properties?category=house' },
+      { text: 'Offices', link: '/properties?category=office' },
+      { text: 'Retail', link: '/properties?category=retail' },
+      { text: 'Villas', link: '/properties?category=villa' },
+    ],
+  },
+  {
+    title: 'About Us',
+    items: [
+      { text: 'About Compnay', link: '/about' },
+      { text: 'Properties', link: '/properties' },
+      { text: 'Contact Us', link: '/contacts' },
+      { text: 'Terms & Conditions', link: '/terms-conditions' },
+      { text: 'Support Center', link: '/support-center' },
+    ],
+  },
+];
 
-    ]
+export const heroSectionItems: IProperty[] = [
+  {
+    _id: '1',
+    title: 'Skyper Pool Partment',
+    address: '112 Glenwood Ave Hyde Park, Boston, MA',
+    beds: 4,
+    baths: 5,
+    garage: 1,
+    area: 1200,
+    price: 2342,
+    image: '/assets/images/hero-bg.png',
   },
   {
-    title: "Lists by Category",
-    items: [
-      { text: "Apartments", link: '/properties?category=apartment' },
-      { text: "Condos", link: '/properties?category=condo' },
-      { text: "Houses", link: '/properties?category=house' },
-      { text: "Offices", link: '/properties?category=office' },
-      { text: "Retail", link: '/properties?category=retail' },
-      { text: "Villas", link: '/properties?category=villa' }
-    ]
+    _id: '2',
+    title: 'Modern Apartment',
+    address: '123 Main St, Springfield, IL',
+    beds: 3,
+    baths: 2,
+    garage: 1,
+    area: 950,
+    price: 5250,
+    image: '/assets/images/hero-bg-2.png',
   },
-  {
-    title: "About Us",
-    items: [
-      { text: "About Compnay", link: '/about' },
-      { text: "Properties", link: '/properties' },
-      { text: "Contact Us", link: '/contacts' },
-      { text: "Terms & Conditions", link: '/terms-conditions' },
-      { text: "Support Center", link: '/support-center' },
-    ]
-  }
-]
+];
