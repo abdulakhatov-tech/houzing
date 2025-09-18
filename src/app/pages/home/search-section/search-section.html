@@ -1,0 +1,53 @@
+
+<!-- Main search input -->
+<input z-input placeholder="Enter address, city, or ZIP" class="flex-1 px-4 h-10" formControlName="query" />
+
+<!-- Advanced Popover -->
+<ng-template #popoverContent>
+  <z-popover class="w-[90vw] sm:w-[92vw] lg:w-[900px] absolute -right-[80px] top-2">
+    <div class="space-y-2">
+      <h4 class="font-medium leading-none">Address</h4>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <input z-input placeholder="Country" class="px-3 h-10" formControlName="country" />
+        <input z-input placeholder="Region" class="px-3 h-10" formControlName="region" />
+        <input z-input placeholder="City" class="px-3 h-10" formControlName="city" />
+        <input z-input placeholder="Zip" class="px-3 h-10" formControlName="zip" />
+      </div>
+
+      <h4 class="font-medium leading-none mt-3">Apartment Info</h4>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <input z-input placeholder="Rooms" class="px-4 h-10" formControlName="rooms" />
+        <input z-input placeholder="Size" class="px-4 h-10" formControlName="size" />
+        <input z-input placeholder="Sort" class="px-4 h-10" formControlName="sort" />
+      </div>
+
+      <h4 class="font-medium leading-none mt-3">Price</h4>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <input z-input placeholder="Min price" class="px-3 h-10" formControlName="minPrice" />
+        <input z-input placeholder="Max price" class="px-3 h-10" formControlName="maxPrice" />
+      </div>
+
+      <div class="flex items-center justify-end gap-3 mt-5">
+        <button z-button zType="outline" class="flex-1 md:w-30" (click)="onCancel()">Cancel</button>
+        <button
+          z-button
+          zType="default"
+          class="flex-1 md:w-30 bg-secondary-blue hover:bg-secondary-blue/90"
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </z-popover>
+</ng-template>
+
+<!-- Main Search Button -->
+<button
+  z-button
+  class="bg-secondary-blue h-10 sm:w-fit md:w-45 hover:bg-secondary-blue/90"
+  (click)="onSubmit()"
+>
+  <img src="/assets/icons/search.svg" alt="Search" />
+  <span class="hidden sm:block">Search</span>
+</button>

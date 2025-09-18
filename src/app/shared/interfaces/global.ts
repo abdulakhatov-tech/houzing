@@ -32,3 +32,16 @@ export interface IProperty {
   price: number;
   image: string;
 }
+
+export interface ISearchParams {
+  query?: string;
+  country?: string;
+  region?: string;
+  city?: string;
+  zip?: string;
+  rooms?: string;
+  size?: string;
+  sort?: string;
+  minPrice?: string;
+  maxPrice?: string;
+}
