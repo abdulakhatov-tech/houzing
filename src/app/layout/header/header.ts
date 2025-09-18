@@ -20,10 +20,12 @@ import { MenuModalComponent } from './menu-modal/menu-modal';
           </div>
 
           <!-- Logo -->
-          <div class="flex items-center gap-2">
-            <img src="assets/icons/logo.svg" alt="Houzing" class="w-7 md:w-8 h-8 md:h-9" />
-            <h4 class="text-white text-xl font-medium">Houzing</h4>
-          </div>
+          <a routerLink="/">
+            <div class="flex items-center gap-2">
+              <img src="assets/icons/logo.svg" alt="Houzing" class="w-7 md:w-8 h-8 md:h-9" />
+              <h4 class="text-white text-xl font-medium">Houzing</h4>
+            </div></a
+          >
 
           <!-- Navigation Links -->
           <ul class="hidden md:flex items-center gap-10 lg:gap-12 xl:gap-14 2xl:gap-16">

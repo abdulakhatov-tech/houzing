@@ -54,10 +54,12 @@ import { IFooterSection } from '@shared/interfaces/global';
       <div class="container py-6">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
           <!-- Logo -->
-          <div class="flex items-center gap-2">
-            <img src="assets/icons/logo.svg" alt="Houzing" class="w-7 md:w-8 h-8 md:h-9" />
-            <h4 class="text-white text-xl font-medium">Houzing</h4>
-          </div>
+          <a routerLink="/">
+            <div class="flex items-center gap-2">
+              <img src="assets/icons/logo.svg" alt="Houzing" class="w-7 md:w-8 h-8 md:h-9" />
+              <h4 class="text-white text-xl font-medium">Houzing</h4>
+            </div></a
+          >
 
           <p class="text-white text-sm leading-5 font-normal text-center max-w-[234px] sm:max-w-full">
             Copyright © {{ currentYear }} CreativeLayers. All Right Reserved.
