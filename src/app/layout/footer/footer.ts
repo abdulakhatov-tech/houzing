@@ -14,7 +14,7 @@ import { IFooterSection } from '@shared/interfaces/global';
           <div *ngFor="let column of footerItems" class="flex flex-col gap-6">
             <h4 class="text-white font-semibold text-[16px] leading-6">{{ column.title }}</h4>
 
-            <ul class="flex flex-col gap-4 max-w-[256px] lg:max-w-full">
+            <ul class="flex flex-col gap-4 max-w-[256px] lg:max-w-[300px]">
               <li *ngFor="let item of column.items">
                 <a
                   [href]="item.link"
