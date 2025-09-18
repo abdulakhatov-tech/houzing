@@ -1,59 +1,149 @@
-# MyApp
+# 🏡 Houzing – Real Estate Web App (Angular + ZarDUI)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+Houzing is a real estate property listing web application built with **Angular CLI** and **ZarDUI** for UI components.  
+The app provides property search, advanced filtering, categories, testimonials, and detailed property views with a modern, responsive UI.  
 
-## Development server
+---
 
-To start a local development server, run:
+## 🎨 UI Preview
 
+![Houzing UI](./public/main.png)
+
+---
+
+## ✨ Features
+
+- 🔍 **Advanced Search & Filtering** – Search properties by address, city, region, rooms, size, price range, etc.  
+- 🏠 **Property Listings** – Recommended properties, popular homes, and recent listings.  
+- 📂 **Property Categories** – Browse by **House, Apartment, Office, Villa** and more.  
+- 🧾 **Property Details** – Each listing includes images, pricing, features, and agent info.  
+- 🛡️ **Why Choose Us Section** – Highlights trust, financing, and neighborhoods.  
+- 💬 **Testimonials** – Customer reviews and feedback.  
+- 📱 **Responsive Design** – Powered by ZarDUI’s adaptive components.  
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend Framework**: [Angular](https://angular.io/) (latest version)  
+- **UI Library**: [ZarDUI](https://zardui.com)  
+- **Styling**: SCSS + ZarDUI theming system  
+- **Routing**: Angular Router  
+- **State Management**: RxJS & Services (NgRx optional for complex flows)  
+- **Build Tool**: Angular CLI  
+- **Linting & Formatting**: ESLint + Prettier  
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) >= 18.x  
+- [Angular CLI](https://angular.io/cli) >= 17.x  
+- npm or yarn  
+
+### Installation
 ```bash
-ng serve
+# Clone repository
+git clone https://github.com/your-username/houzing-angular.git
+cd houzing-angular
+
+# Install dependencies
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+### Install ZarDUI
+```
+npm install zardui
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Import ZarDUI in your main module:
+```
+import { ZarduiModule } from 'zardui';
 
-```bash
-ng generate --help
+@NgModule({
+  imports: [
+    BrowserModule,
+    ZarduiModule,
+    ...
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
 ```
 
-## Building
+## 📂 Project Structure
+```
+houzing-angular/
+│── src/
+│   ├── app/
+│   │   ├── core/              # Core services, interceptors, guards
+│   │   ├── shared/            # Shared components, directives, pipes
+│   │   ├── features/          # Feature modules (properties, search, auth, etc.)
+│   │   ├── layouts/           # Layout components (header, footer, sidebar)
+│   │   ├── app-routing.module.ts
+│   │   ├── app.module.ts
+│   ├── assets/                # Images, fonts, icons
+│   ├── environments/          # Environment configs
+│── angular.json
+│── package.json
+│── README.md
 
-To build the project run:
-
-```bash
-ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## ⚙️ Environment Configuration
+Create environment files in src/environments/:
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+environment.ts
+```
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api'
+};
+```
+environment.prod.ts
+```
+export const environment = {
+  production: true,
+  apiUrl: 'https://api.houzing.com'
+};
 ```
 
-## Running end-to-end tests
+## 📦 Build
+```
+ng build --configuration production
+```
+Build artifacts will be stored in the dist/ directory.
 
-For end-to-end (e2e) testing, run:
+## 🚢 Deployment
+- Vercel / Netlify: Deploy dist/ folder directly.
+- Docker (optional):
+```
+FROM node:18-alpine as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build -- --configuration production
 
-```bash
-ng e2e
+FROM nginx:alpine
+COPY --from=build /app/dist/houzing-angular /usr/share/nginx/html
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🧑‍💻 Coding Standards
+- Use feature modules for scalability.
+- Follow Angular + ZarDUI best practices.
+- Strict typing with TypeScript.
+- Use ESLint + Prettier for consistency.
+- Use RxJS best practices (takeUntil, asyncPipe).
+- Centralize ZarDUI theme customization under /shared/styles/.
 
-## Additional Resources
+## 🤝 Contribution
+1. Fork the repo
+2. Create a feature branch (git checkout -b feature/amazing-feature)
+3. Commit changes (git commit -m "feat: add amazing feature")
+4. Push to branch (git push origin feature/amazing-feature)
+5. Open a Pull Request
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📜 License
+This project is licensed under the MIT License.
