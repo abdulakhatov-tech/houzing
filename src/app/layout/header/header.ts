@@ -2,22 +2,22 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { IMenuItem } from './interface';
+import { menuItems } from '@shared/constants';
+import { IMenuItem } from '@shared/interfaces/global';
+import { MenuModal, MenuModalComponent } from './menu-modal/menu-modal';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MenuModalComponent],
   template: `
     <header class="bg-primary-blue py-3 md:py-[14px]">
       <div class="container">
         <nav class="flex items-center justify-between gap-6">
           <!-- Hamburger Menu -->
-          <img
-            src="assets/icons/hamburger-menu.svg"
-            alt="Menu"
-            class="w-5 md:w-6 h-5 md:h-6 md:hidden"
-          />
+          <div class="md:hidden">
+            <app-menu-modal-button />
+          </div>
 
           <!-- Logo -->
           <div class="flex items-center gap-2">
@@ -46,9 +46,5 @@ import { IMenuItem } from './interface';
   styleUrls: ['./header.css'],
 })
 export class Header {
-  menu: IMenuItem[] = [
-    { label: 'Home', path: '/' },
-    { label: 'Properties', path: '/properties' },
-    { label: 'Contacts', path: '/contacts' },
-  ];
+  menu: IMenuItem[] = menuItems;
 }
