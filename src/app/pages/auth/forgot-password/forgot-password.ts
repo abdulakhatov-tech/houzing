@@ -1,5 +1,5 @@
 import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Component, inject, signal } from '@angular/core';
 import { ZardFormModule } from '@shared/components/form/form.module';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
@@ -8,12 +8,10 @@ import { ZardCheckboxComponent } from '@shared/components/checkbox/checkbox.comp
 
 interface FormData {
   email: string;
-  password: string;
-  rememberMe?: boolean;
 }
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-forgot-password',
   imports: [
     ReactiveFormsModule,
     ZardButtonComponent,
@@ -26,7 +24,7 @@ interface FormData {
     <section id="sign-in">
       <div class="container">
         <div class="pt-10 sm:pt-15 md:pt-20 mb-24 flex flex-col items-center">
-          <h1 class="text-2xl sm:text-3xl font-bold mb-6">Sign In</h1>
+          <h1 class="text-2xl sm:text-3xl font-bold mb-6">Forgot Password</h1>
           <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="space-y-6 max-w-md w-full">
             <!-- Email Field -->
             <z-form-field class="w-full">
@@ -42,39 +40,6 @@ interface FormData {
               </z-form-control>
             </z-form-field>
 
-            <z-form-field class="w-full">
-              <label z-form-label zRequired for="password">Password</label>
-              <z-form-control
-                [errorMessage]="isFieldInvalid('password') ? 'Password is required' : ''"
-              >
-                <input
-                  z-input
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  formControlName="password"
-                />
-              </z-form-control>
-            </z-form-field>
-
-            <div class="flex items-center justify-between w-full">
-              <z-form-field>
-                <z-form-control
-                  [errorMessage]="isFieldInvalid('rememberMe') ? 'Something' : ''"
-                  class="flex flex-col"
-                >
-                  <div class="flex items-center space-x-2">
-                    <z-checkbox id="rememberMe" formControlName="rememberMe" />
-                    <label z-form-label class="!mb-0" for="rememberMe">Remember me</label>
-                  </div>
-                </z-form-control>
-              </z-form-field>
-
-              <a routerLink="/auth/forgot-password" class="text-secondary-blue underline"
-                >Forgot password?</a
-              >
-            </div>
-
             <!-- Action Buttons -->
             <button
               z-button
@@ -83,37 +48,29 @@ interface FormData {
               [disabled]="isSubmitting()"
               class="w-full"
             >
-              {{ isSubmitting() ? 'Signing In...' : 'Sign In' }}
+              {{ isSubmitting() ? 'Submitting...' : 'Submit' }}
             </button>
 
             <p class="text-center">
-              Don't have an account?
-              <a routerLink="/auth/sign-up" class="text-secondary-blue underline">Sign Up</a>
+              Remember Password?
+              <a routerLink="/auth/sign-in" class="text-secondary-blue underline">Sign in</a>
             </p>
-
-            <!-- Success Message -->
-            @if (showSuccess()) {
-            <div class="p-4 bg-green-50 border border-green-200 rounded-md">
-              <z-form-message zType="success">✓ You've signed in successfully!</z-form-message>
-            </div>
-            }
           </form>
         </div>
       </div>
     </section>
   `,
-  styleUrl: './sign-in.css',
+  styleUrl: './forgot-password.css',
 })
-export class SignIn {
+export class ForgotPassword {
   private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
 
   readonly showSuccess = signal(false);
   readonly isSubmitting = signal(false);
 
   readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    rememberMe: [false],
   });
 
   isFieldInvalid(fieldName: keyof FormData): boolean {
@@ -146,10 +103,12 @@ export class SignIn {
     this.showSuccess.set(true);
     // this.form.reset();
 
+
     console.log('Form submitted:', this.form.getRawValue());
 
     setTimeout(() => {
       this.showSuccess.set(false);
+      this.router.navigate(['/auth/verify-otp'])
     }, 5000);
   }
 
