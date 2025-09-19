@@ -4,7 +4,6 @@ import { Component, inject, signal } from '@angular/core';
 import { ZardFormModule } from '@shared/components/form/form.module';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
-import { ZardCheckboxComponent } from '@shared/components/checkbox/checkbox.component';
 
 interface FormData {
   email: string;
@@ -17,7 +16,6 @@ interface FormData {
     ZardButtonComponent,
     ZardInputDirective,
     ZardFormModule,
-    ZardCheckboxComponent,
     RouterLink,
   ],
   template: `
