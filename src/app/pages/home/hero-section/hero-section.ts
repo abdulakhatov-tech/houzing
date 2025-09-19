@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgStyle } from '@angular/common';
 import { heroSectionItems } from '@shared/constants';
 import { IProperty } from '@shared/interfaces/global';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-hero-section',
-  imports: [ZardButtonComponent, CurrencyPipe],
+  imports: [ZardButtonComponent, CurrencyPipe, NgStyle],
   template: `
     <section
       id="hero-section"
-      class="bg-[url('/assets/images/hero-bg.png')] bg-cover bg-center relative"
+      class="bg-cover bg-center relative"
+      [ngStyle]="{ 'background-image': 'url(' + randomProperty.image + ')' }"
     >
       <!-- Shadow overlay -->
       <div

@@ -24,12 +24,17 @@ import { CommonModule } from '@angular/common';
   template: `
     <section id="search-section" class="py-[10px]">
       <div class="container relative">
-        <form [formGroup]="searchForm" class="flex items-center gap-2 md:gap-4">
+        <form
+          [formGroup]="searchForm"
+          (ngSubmit)="$event.preventDefault()"
+          class="flex items-center gap-2 md:gap-4"
+        >
           <input
             z-input
             formControlName="keyword"
             placeholder="Enter an address, city, or ZIP code"
             class="flex-1 px-4 h-10"
+            (focus)="goToProperties()"
           />
 
           <button
@@ -38,6 +43,7 @@ import { CommonModule } from '@angular/common';
             class="h-10 sm:w-fit md:w-35"
             zPopover
             [zContent]="popoverContent"
+            type="button"
           >
             <img src="/assets/icons/setting-lines.svg" alt="Search" />
             <span class="hidden sm:block">Advanced</span>
@@ -55,32 +61,54 @@ import { CommonModule } from '@angular/common';
                     placeholder="Country"
                     formControlName="country"
                     class="px-3 md:px-4 h-10"
+                    (focus)="goToProperties()"
                   />
                   <input
                     z-input
                     placeholder="Region"
                     formControlName="region"
                     class="px-3 md:px-4 h-10"
+                    (focus)="goToProperties()"
                   />
                   <input
                     z-input
                     placeholder="City"
                     formControlName="city"
                     class="px-3 md:px-4 h-10"
+                    (focus)="goToProperties()"
                   />
                   <input
                     z-input
                     placeholder="Zip code"
                     formControlName="zip"
                     class="px-3 md:px-4 h-10"
+                    (focus)="goToProperties()"
                   />
                 </div>
 
                 <h4 class="font-medium leading-none mt-3 md:mt-5">Apartment Info</h4>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-                  <input z-input placeholder="Rooms" formControlName="rooms" class="px-4 h-10" />
-                  <input z-input placeholder="Size" formControlName="size" class="px-4 h-10" />
-                  <input z-input placeholder="Sort" formControlName="sort" class="px-4 h-10" />
+                  <input
+                    z-input
+                    placeholder="Rooms"
+                    formControlName="rooms"
+                    class="px-4 h-10"
+                    (focus)="goToProperties()"
+                  />
+                  <input
+                    z-input
+                    placeholder="Size"
+                    formControlName="size"
+                    class="px-4 h-10"
+                    (focus)="goToProperties()"
+                  />
+                  <input
+                    z-input
+                    placeholder="Sort"
+                    formControlName="sort"
+                    class="px-4 h-10"
+                    (focus)="goToProperties()"
+                  />
                 </div>
 
                 <h4 class="font-medium leading-none mt-3 md:mt-5">Price</h4>
@@ -90,12 +118,14 @@ import { CommonModule } from '@angular/common';
                     placeholder="Min price"
                     formControlName="minPrice"
                     class="px-3 md:px-4 h-10"
+                    (focus)="goToProperties()"
                   />
                   <input
                     z-input
                     placeholder="Max price"
                     formControlName="maxPrice"
                     class="px-4 h-10"
+                    (focus)="goToProperties()"
                   />
                 </div>
 
@@ -106,6 +136,7 @@ import { CommonModule } from '@angular/common';
                     class="flex-1 md:w-30"
                     *ngIf="hasValues()"
                     (click)="resetParams()"
+                    type="button"
                   >
                     Clear
                   </button>
@@ -151,14 +182,14 @@ export class SearchSection {
     this.route.queryParams.subscribe((params) => {
       this.searchForm.patchValue(params, { emitEvent: false });
     });
-  
+
     // 2. Listen to form changes and update query params
     this.searchForm.valueChanges.pipe(debounceTime(400)).subscribe((values) => {
       this.router.navigate(['/properties'], {
-        queryParams: this.cleanParams(values), // always replace params
+        queryParams: this.cleanParams(values),
       });
     });
-  
+
     // 3. Reset form when leaving /properties
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe((event: any) => {
       if (!event.url.startsWith('/properties')) {
@@ -168,9 +199,7 @@ export class SearchSection {
   }
 
   private cleanParams(values: any) {
-    return Object.fromEntries(
-      Object.entries(values).filter(([_, v]) => v !== null && v !== '')
-    );
+    return Object.fromEntries(Object.entries(values).filter(([_, v]) => v !== null && v !== ''));
   }
 
   resetParams() {
@@ -180,5 +209,15 @@ export class SearchSection {
 
   hasValues(): boolean {
     return Object.values(this.searchForm.value).some((v) => v && v !== '');
+  }
+
+  goToProperties() {
+    const currentUrl = this.router.url.split('?')[0]; // remove query params
+    if (currentUrl !== '/properties') {
+      this.router.navigate(['/properties'], {
+        queryParams: this.cleanParams(this.searchForm.value),
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 }
