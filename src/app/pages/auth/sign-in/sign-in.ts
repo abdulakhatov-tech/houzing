@@ -1,16 +1,15 @@
-import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { toast } from 'ngx-sonner';
+import { Router, RouterLink } from '@angular/router';
 import { Component, inject, signal } from '@angular/core';
+import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+
+import { formErrorHandler } from '@shared/utils/helpers';
+import { ISignInFormData } from '@shared/interfaces/auth';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ZardFormModule } from '@shared/components/form/form.module';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardCheckboxComponent } from '@shared/components/checkbox/checkbox.component';
-
-interface FormData {
-  email: string;
-  password: string;
-  rememberMe?: boolean;
-}
 
 @Component({
   selector: 'app-sign-in',
@@ -90,24 +89,17 @@ interface FormData {
               Don't have an account?
               <a routerLink="/auth/sign-up" class="text-secondary-blue underline">Sign Up</a>
             </p>
-
-            <!-- Success Message -->
-            @if (showSuccess()) {
-            <div class="p-4 bg-green-50 border border-green-200 rounded-md">
-              <z-form-message zType="success">✓ You've signed in successfully!</z-form-message>
-            </div>
-            }
           </form>
         </div>
       </div>
     </section>
   `,
-  styleUrl: './sign-in.css',
 })
 export class SignIn {
   private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  readonly showSuccess = signal(false);
   readonly isSubmitting = signal(false);
 
   readonly form = this.fb.nonNullable.group({
@@ -116,7 +108,7 @@ export class SignIn {
     rememberMe: [false],
   });
 
-  isFieldInvalid(fieldName: keyof FormData): boolean {
+  isFieldInvalid(fieldName: keyof ISignInFormData): boolean {
     const field = this.form.get(fieldName);
     return !!(field && field.invalid && (field.dirty || field.touched));
   }
@@ -140,25 +132,28 @@ export class SignIn {
 
     this.isSubmitting.set(true);
 
-    await this.simulateApiCall();
+    const { email, password, rememberMe } = this.form.getRawValue();
 
-    this.isSubmitting.set(false);
-    this.showSuccess.set(true);
-    // this.form.reset();
+    this.authService.signIn({ email, password, rememberMe }).subscribe({
+      next: (response) => {
+        this.form.reset();
 
-    console.log('Form submitted:', this.form.getRawValue());
+        toast.success(`${response?.data?.user?.firstName} ${response?.data?.user?.lastName}`, {
+          description: 'You successfully signed in.',
+        });
 
-    setTimeout(() => {
-      this.showSuccess.set(false);
-    }, 5000);
-  }
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        this.isSubmitting.set(false);
 
-  resetForm(): void {
-    this.form.reset();
-    this.showSuccess.set(false);
-  }
-
-  private simulateApiCall(): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, 1000));
+        formErrorHandler({
+          message: error?.error?.message,
+          duration: 8000, // optional override
+          title: 'Sign In Error', // optional
+        });
+      },
+      complete: () => this.isSubmitting.set(false),
+    });
   }
 }

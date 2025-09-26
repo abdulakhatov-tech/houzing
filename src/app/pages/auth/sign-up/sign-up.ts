@@ -9,12 +9,14 @@ import {
 import { toast } from 'ngx-sonner';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { ISignUpFormData } from '@shared/interfaces/auth';
 import { Component, inject, signal } from '@angular/core';
+
+import { ISignUpFormData } from '@shared/interfaces/auth';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ZardFormModule } from '@shared/components/form/form.module';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
+import { formErrorHandler } from '@shared/utils/helpers';
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
@@ -147,7 +149,6 @@ const passwordMatchValidator: ValidatorFn = (control: AbstractControl): Validati
       </div>
     </section>
   `,
-  styleUrl: './sign-up.css',
 })
 export class SignUp {
   private readonly fb = inject(FormBuilder);
@@ -198,17 +199,20 @@ export class SignUp {
         console.log('Sign-up successful:', response);
         this.form.reset();
 
-        toast.success(
-          `${response?.data?.user?.firstName} ${response?.data?.user?.lastName}`,
-          {
-            description: 'Your account has been created successfully.',
-          }
-        );
+        toast.success(`${response?.data?.user?.firstName} ${response?.data?.user?.lastName}`, {
+          description: 'Your account has been created successfully.',
+        });
 
         this.router.navigate(['/']);
       },
       error: (error) => {
-        console.error('Sign-up error:', error);
+        this.isSubmitting.set(false);
+
+        formErrorHandler({
+          message: error?.error?.message,
+          duration: 8000, // optional override
+          title: 'Sign Up Error', // optional
+        });
       },
       complete: () => this.isSubmitting.set(false),
     });
