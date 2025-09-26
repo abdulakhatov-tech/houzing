@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { menuItems } from '@shared/constants';
 import { IMenuItem } from '@shared/interfaces/global';
 import { MenuModalComponent } from './menu-modal/menu-modal';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ZardButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MenuModalComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MenuModalComponent, ZardButtonComponent],
   template: `
     <header class="bg-primary-blue py-3 md:py-[14px]">
       <div class="container">
@@ -41,7 +43,14 @@ import { MenuModalComponent } from './menu-modal/menu-modal';
           </ul>
 
           <!-- User Icon -->
-          <img src="assets/icons/user.svg" alt="User" class="w-5 md:w-6 h-5 md:h-6" />
+          <ng-container *ngIf="!authService.isAuthenticated; else loggedIn">
+            <a routerLink="/auth/sign-in">
+              <button class="text-white" z-button zType="destructive">Login</button>
+            </a>
+          </ng-container>
+          <ng-template #loggedIn>
+            <img src="assets/icons/user.svg" alt="User" class="w-5 md:w-6 h-5 md:h-6" />
+          </ng-template>
         </nav>
       </div>
     </header>
@@ -49,5 +58,6 @@ import { MenuModalComponent } from './menu-modal/menu-modal';
   styleUrls: ['./header.css'],
 })
 export class Header {
+  readonly authService = inject(AuthService);
   menu: IMenuItem[] = menuItems;
 }

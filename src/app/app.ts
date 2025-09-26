@@ -4,10 +4,11 @@ import { Footer } from './layout/footer/footer';
 import { Router, RouterModule } from '@angular/router';
 import { SearchSection } from './pages/home/search-section/search-section';
 import { CommonModule } from '@angular/common';
+import { ZardToastComponent } from "@shared/components/toast/toast.component";
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Footer, RouterModule, SearchSection, CommonModule],
+  imports: [Header, Footer, RouterModule, SearchSection, CommonModule, ZardToastComponent],
   template: `
     <app-header />
 
@@ -17,6 +18,8 @@ import { CommonModule } from '@angular/common';
     <main>
       <router-outlet />
     </main>
+
+    <z-toaster />
     <app-footer />
   `,
   styleUrl: './app.css',

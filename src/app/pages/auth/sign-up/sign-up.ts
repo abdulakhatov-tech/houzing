@@ -6,19 +6,15 @@ import {
   ValidationErrors,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { toast } from 'ngx-sonner';
+import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { ISignUpFormData } from '@shared/interfaces/auth';
 import { Component, inject, signal } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ZardFormModule } from '@shared/components/form/form.module';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
-import { RouterLink } from '@angular/router';
-
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: boolean;
-}
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
@@ -146,13 +142,6 @@ const passwordMatchValidator: ValidatorFn = (control: AbstractControl): Validati
               Already have an account?
               <a routerLink="/auth/sign-in" class="text-secondary-blue underline">Sign In</a>
             </p>
-
-            <!-- Success Message -->
-            @if (showSuccess()) {
-            <div class="p-4 bg-green-50 border border-green-200 rounded-md">
-              <z-form-message zType="success">✓ You've signed up successfully!</z-form-message>
-            </div>
-            }
           </form>
         </div>
       </div>
@@ -162,8 +151,9 @@ const passwordMatchValidator: ValidatorFn = (control: AbstractControl): Validati
 })
 export class SignUp {
   private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  readonly showSuccess = signal(false);
   readonly isSubmitting = signal(false);
 
   readonly form = this.fb.nonNullable.group(
@@ -171,13 +161,13 @@ export class SignUp {
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
       confirmPassword: ['', [Validators.required]],
     },
     { validators: passwordMatchValidator }
   );
 
-  isFieldInvalid(fieldName: keyof FormData): boolean {
+  isFieldInvalid(fieldName: keyof ISignUpFormData): boolean {
     const field = this.form.get(fieldName);
     return !!(field && field.invalid && (field.dirty || field.touched));
   }
@@ -201,25 +191,26 @@ export class SignUp {
 
     this.isSubmitting.set(true);
 
-    await this.simulateApiCall();
+    const { firstName, lastName, email, password } = this.form.getRawValue();
 
-    this.isSubmitting.set(false);
-    this.showSuccess.set(true);
-    // this.form.reset();
+    this.authService.signUp({ firstName, lastName, email, password }).subscribe({
+      next: (response) => {
+        console.log('Sign-up successful:', response);
+        this.form.reset();
 
-    console.log('Form submitted:', this.form.getRawValue());
+        toast.success(
+          `${response?.data?.user?.firstName} ${response?.data?.user?.lastName}`,
+          {
+            description: 'Your account has been created successfully.',
+          }
+        );
 
-    setTimeout(() => {
-      this.showSuccess.set(false);
-    }, 5000);
-  }
-
-  resetForm(): void {
-    this.form.reset();
-    this.showSuccess.set(false);
-  }
-
-  private simulateApiCall(): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, 1000));
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Sign-up error:', error);
+      },
+      complete: () => this.isSubmitting.set(false),
+    });
   }
 }

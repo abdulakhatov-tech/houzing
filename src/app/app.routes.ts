@@ -6,6 +6,7 @@ import { SignUp } from './pages/auth/sign-up/sign-up';
 import { NotFound } from './pages/not-found/not-found';
 import { VerifyOtp } from './pages/auth/verify-otp/verify-otp';
 import { ForgotPassword } from './pages/auth/forgot-password/forgot-password';
+import { AuthGuard } from '@shared/utils/auth.guard';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,7 @@ export const routes: Routes = [
     path: 'properties',
     loadComponent: () => import('./pages/properties/properties').then((m) => m.Properties),
     title: 'Houzing | Properties',
+    canActivate: [AuthGuard]
   },
   {
     path: 'auth',
