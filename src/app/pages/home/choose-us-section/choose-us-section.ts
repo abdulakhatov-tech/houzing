@@ -10,8 +10,8 @@ import { SectionComponent } from '@shared/components/section-component/section-c
   imports: [CommonModule, SectionComponent],
   template: `
     <app-section-component
-      title="Why Choose Us ?"
-      description="Nulla quis curabitur velit volutpat auctor bibendum consectetur sit."
+      title="Why Choose Us?"
+      description="Discover what makes our service stand out—quality, reliability, and a commitment to your perfect home."
       bgColor="#F5F7FC"
     >
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
@@ -27,7 +27,6 @@ import { SectionComponent } from '@shared/components/section-component/section-c
       </div>
     </app-section-component>
   `,
-  styleUrl: './choose-us-section.css',
 })
 export class ChooseUsSection {
   readonly items: IWhyChooseUsItem[] = whyChooseUsItems;

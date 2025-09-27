@@ -6,6 +6,7 @@ import { ChooseUsSection } from './choose-us-section/choose-us-section';
 import { CategoriesSection } from './categories-section/categories-section';
 import { RecommendedSection } from './recommended-section/recommended-section';
 import { TestimonialsSection } from './testimonials-section/testimonials-section';
+import { RecentPropertiesSection } from "./recent-properties-section/recent-properties-section";
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,15 @@ import { TestimonialsSection } from './testimonials-section/testimonials-section
     CategoriesSection,
     RecommendedSection,
     TestimonialsSection,
-  ],
+    RecentPropertiesSection
+],
   template: `
     <app-hero-section />
     <app-recommended-section />
     <app-choose-us-section />
     <app-categories-section />
     <app-banner-section />
+    <app-recent-properties-section />
     <app-testimonials-section />
   `,
 })
