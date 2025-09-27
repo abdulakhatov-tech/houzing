@@ -1,4 +1,10 @@
-import { IFooterSection, IMenuItem, IProperty, ISocialMediaItem } from '@shared/interfaces/global';
+import {
+  IFooterSection,
+  IMenuItem,
+  IProperty,
+  ISocialMediaItem,
+  IWhyChooseUsItem,
+} from '@shared/interfaces/global';
 
 export const menuItems: IMenuItem[] = [
   { label: 'Home', path: '/' },
@@ -90,5 +96,36 @@ export const heroSectionItems: IProperty[] = [
     area: 950,
     price: 5250,
     image: '/assets/images/hero-bg-2.png',
+  },
+];
+
+export const whyChooseUsItems: IWhyChooseUsItem[] = [
+  {
+    _id: '1',
+    imgUrl: '/assets/icons/discord.svg',
+    title: 'Trusted By Thousands',
+    description:
+      'With over 1 million+ homes for sale available on the website, Trulia can match you with a house you will want to call home.',
+  },
+  {
+    _id: '2',
+    imgUrl: '/assets/icons/house.svg',
+    title: 'Wide Range Of Properties',
+    description:
+      'From cozy starter apartments to spacious luxury estates, we offer listings in every style, size, and budget across top neighborhoods.',
+  },
+  {
+    _id: '3',
+    imgUrl: '/assets/icons/calculator.svg',
+    title: 'Financing Made Easy',
+    description:
+      'Our experts guide you through mortgage options and pre-approval steps so you can secure the best rates and buy with confidence.',
+  },
+  {
+    _id: '4',
+    imgUrl: '/assets/icons/maps.svg',
+    title: 'See Neighborhoods',
+    description:
+      'Interactive maps and detailed local insights help you explore schools, amenities, and lifestyle features before you decide to move.',
   },
 ];

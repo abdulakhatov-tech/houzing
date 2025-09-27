@@ -45,3 +45,10 @@ export interface ISearchParams {
   minPrice?: string;
   maxPrice?: string;
 }
+
+export interface IWhyChooseUsItem {
+  _id: string;
+  imgUrl: string;
+  title: string;
+  description: string;
+}
