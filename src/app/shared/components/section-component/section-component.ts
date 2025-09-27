@@ -14,7 +14,7 @@ import { Component, Input } from '@angular/core';
           {{ title }}
         </h2>
         <p
-          class="text-[16px] font-normal leading-6 text-gray-500 text-center mt-1 md:mt-2 mb-8 md:mb-10"
+          class="text-[16px] font-normal leading-6 text-gray-500 text-center mt-1 md:mt-2 mb-8"
         >
           {{ description }}
         </p>

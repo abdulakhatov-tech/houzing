@@ -52,3 +52,11 @@ export interface IWhyChooseUsItem {
   title: string;
   description: string;
 }
+
+export interface ITestimonial {
+  _id: string;
+  title: string;
+  fullName: string;
+  position: string;
+  imgUrl: string;
+}

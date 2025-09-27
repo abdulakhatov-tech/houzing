@@ -1,7 +1,8 @@
 import {
-  IFooterSection,
   IMenuItem,
   IProperty,
+  ITestimonial,
+  IFooterSection,
   ISocialMediaItem,
   IWhyChooseUsItem,
 } from '@shared/interfaces/global';
@@ -130,3 +131,53 @@ export const whyChooseUsItems: IWhyChooseUsItem[] = [
   },
 ];
 
+export const testimonials: ITestimonial[] = [
+  {
+    _id: '1',
+    title:
+      "I believe in lifelong learning and Skola is a great place to learn from experts. I've learned a lot and recommend it to all my friends",
+    fullName: 'Marvin McKinney',
+    position: 'Designer',
+    imgUrl: '/assets/images/testimonial-1.png',
+  },
+  {
+    _id: '2',
+    title:
+      'The courses are well-structured and the mentors are always helpful. I’ve gained practical skills that I use every day at work.',
+    fullName: 'Courtney Henry',
+    position: 'Frontend Developer',
+    imgUrl: '/assets/images/testimonial-2.png',
+  },
+  {
+    _id: '3',
+    title:
+      'Skola makes complex topics easy to understand. The interactive lessons kept me engaged and motivated to finish every module.',
+    fullName: 'Jerome Bell',
+    position: 'Data Analyst',
+    imgUrl: '/assets/images/testimonial-3.png',
+  },
+  {
+    _id: '4',
+    title:
+      'I appreciate the flexible schedule and high-quality content. It allowed me to learn at my own pace while balancing a busy job.',
+    fullName: 'Esther Howard',
+    position: 'Product Manager',
+    imgUrl: '/assets/images/testimonial-4.png',
+  },
+  {
+    _id: '5',
+    title:
+      'Thanks to Skola I transitioned into a new career. The real-world projects and community support were exactly what I needed.',
+    fullName: 'Kathryn Murphy',
+    position: 'UX Researcher',
+    imgUrl: '/assets/images/testimonial-5.png',
+  },
+  {
+    _id: '6',
+    title:
+      'Every course feels like a conversation with industry experts. I’m always excited to log in and discover something new.',
+    fullName: 'Ralph Edwards',
+    position: 'Software Engineer',
+    imgUrl: '/assets/images/testimonial-6.png',
+  },
+];

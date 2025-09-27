@@ -1,0 +1,44 @@
+<app-section-component
+  title="Testimonials"
+  description="Nulla quis curabitur velit volutpat auctor bibendum consectetur sit."
+  bgColor="#F5F7FC"
+>
+  <p-carousel
+    [value]="testimonials"
+    [numVisible]="3"
+    [numScroll]="1"
+    [circular]="true"
+    [showIndicators]="false"
+    autoplayInterval="3000"
+    [responsiveOptions]="responsiveOptions"
+    class="grid grid-cols-3 gap-10"
+  >
+    <ng-template pTemplate="item" let-testimonial>
+      <div class="h-full">
+        <div class="p-10 shadow-lg m-2 rounded-[3px] bg-white h-[65%]">
+          <h6 class="text-[16px] font-normal leading-6 text-[#696969] text-center">
+            {{ testimonial.title }}
+          </h6>
+        </div>
+        <div class="flex flex-col items-center relative">
+          <div
+            class="w-10 h-10 sm:w-12 sm:h-12 md:w-[42px] md:h-[42px] rounded-full overflow-hidden bg-white shadow-lg p-[2px] absolute -top-8"
+          >
+            <img
+              [src]="testimonial.imgUrl"
+              [alt]="testimonial.fullName"
+              class="w-full h-full object-cover rounded-full"
+              loading="lazy"
+            />
+          </div>
+          <h4 class="text-[16px] font-semibold leading-6 text-primary-blue mb-1 mt-6">
+            {{ testimonial.fullName }}
+          </h4>
+          <span class="text-[16px] font-normal leading-6 text-[#696969] sm:mt-1">{{
+            testimonial.position
+          }}</span>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</app-section-component>
