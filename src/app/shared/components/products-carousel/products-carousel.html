@@ -1,0 +1,17 @@
+<app-section-component [title]="title" [description]="description" [bgColor]="bgColor">
+  <p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="1"
+    [circular]="true"
+    autoplayInterval="3000"
+    [responsiveOptions]="responsiveOptions"
+    class="grid grid-cols-3 gap-10"
+  >
+    <ng-template pTemplate="item" let-product>
+      <div class="mx-2">
+        <app-product-card [product]="product" />
+      </div>
+    </ng-template>
+  </p-carousel>
+</app-section-component>

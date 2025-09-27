@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { IProperty } from '@shared/interfaces/global';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [CommonModule],
   template: `
     <div class="border">
       <div class="relative w-full h-[220px]">
@@ -23,33 +25,33 @@ import { Component } from '@angular/core';
         </div>
       </div>
       <div class="p-5">
-        <h3 class="text-[16px] leading-6 font-semibold">New Apartment Nice Wiew</h3>
-        <p class="text-sm text-gray-500 mt-1">Quincy St, Brooklyn, NY, USA</p>
+        <h3 class="text-[16px] leading-6 font-semibold">{{product?.title}}</h3>
+        <p class="text-sm text-gray-500 mt-1">{{product?.address}}</p>
 
         <ul class="mt-4 flex items-end justify-between gap-1">
           <li class="flex flex-col items-center gap-1">
             <img src='/assets/icons/bed-gray.svg' alt='bed' />
-            <span class="text-sm text-gray-500 ml-1">3 Beds</span>
+            <span class="text-sm text-gray-500 ml-1">{{product?.beds}} Beds</span>
           </li>
           <li class="flex flex-col items-center gap-1">
             <img src='/assets/icons/bath-gray.svg' alt='bath' />
-            <span class="text-sm text-gray-500 ml-1">4 Baths</span>
+            <span class="text-sm text-gray-500 ml-1">{{product?.baths}} Baths</span>
           </li>
           <li class="flex flex-col items-center gap-1">
             <img src='/assets/icons/car-gray.svg' alt='car' />
-            <span class="text-sm text-gray-500 ml-1">1 Garage</span>
+            <span class="text-sm text-gray-500 ml-1">{{product?.garage}} Garage</span>
           </li>
           <li class="flex flex-col items-center gap-1">
             <img src='/assets/icons/ruler-gray.svg' alt='ruler' />
-            <span class="text-sm text-gray-500 ml-1">3 Sq Ft</span>
+            <span class="text-sm text-gray-500 ml-1">{{product?.area}} Sq Ft</span>
           </li>
         </ul>
       </div>
       <div class="border-t pt-2 px-5 pb-5 flex items-center justify-between gap-4">
         <div class="flex flex-col">
           
-          <span class="text-[12px] font-normal line-through text-gray-500">$2,800/mo</span>
-          <strong class="text-[16px] leading-6 font-semibold">$7,500/mo</strong>
+          <span class="text-[12px] font-normal line-through text-gray-500">{{product?.oldPrice | currency}}/mo</span>
+          <strong class="text-[16px] leading-6 font-semibold">{{product?.price | currency}}/mo</strong>
         </div>
 
         <div class="flex items-center gap-1">
@@ -66,4 +68,6 @@ import { Component } from '@angular/core';
   `,
   styleUrl: './product-card.css',
 })
-export class ProductCard {}
+export class ProductCard {
+  @Input() product: IProperty | null = null
+}

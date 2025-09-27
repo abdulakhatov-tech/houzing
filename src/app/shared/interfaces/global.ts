@@ -29,6 +29,7 @@ export interface IProperty {
   baths: number;
   garage: number;
   area: number;
+  oldPrice: number;
   price: number;
   image: string;
 }
