@@ -1,13 +1,19 @@
 import { Routes } from '@angular/router';
 
-import { Home } from './pages/home/home';
+// Auth Pages
 import { SignIn } from './pages/auth/sign-in/sign-in';
 import { SignUp } from './pages/auth/sign-up/sign-up';
 import { NotFound } from './pages/not-found/not-found';
 import { VerifyOtp } from './pages/auth/verify-otp/verify-otp';
 import { ForgotPassword } from './pages/auth/forgot-password/forgot-password';
-import { AuthGuard } from '@shared/utils/auth.guard';
+
+// Pages
+import { Home } from './pages/home/home';
 import { ResetPassword } from './pages/auth/reset-password/reset-password';
+
+// Utility functions
+import { NoAuthGuard } from '@shared/utils/no-auth';
+import { AuthGuard } from '@shared/utils/auth.guard';
 
 export const routes: Routes = [
   {
@@ -19,10 +25,11 @@ export const routes: Routes = [
     path: 'properties',
     loadComponent: () => import('./pages/properties/properties').then((m) => m.Properties),
     title: 'Houzing | Properties',
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth',
+    canActivate: [NoAuthGuard],
     children: [
       {
         path: 'sign-up',
@@ -47,8 +54,8 @@ export const routes: Routes = [
       {
         path: 'reset-password',
         component: ResetPassword,
-        title: "Houzing | Reset Password"
-      }
+        title: 'Houzing | Reset Password',
+      },
     ],
   },
   {

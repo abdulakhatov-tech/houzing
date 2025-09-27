@@ -84,4 +84,16 @@ export class AuthService {
   get isAuthenticated(): boolean {
     return !!this.getToken();
   }
+
+  hasRole(role: 'customer' | 'seller' | 'admin'): boolean {
+    const token = this.getToken();
+
+    if(!token) return false;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+
+    return payload.roles.includes(role)
+
+    // <button *ngIf="authService.hasRole('admin')">Admin Panel</button>
+  }
 }
