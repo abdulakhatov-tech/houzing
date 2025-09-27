@@ -60,3 +60,11 @@ export interface ITestimonial {
   position: string;
   imgUrl: string;
 }
+
+export interface ICategory {
+  _id: string;
+  title: string;
+  slug: string;
+  icon: string;
+  imgUrl: string;
+}

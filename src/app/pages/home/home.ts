@@ -4,13 +4,15 @@ import { HeroSection } from './hero-section/hero-section';
 import { BannerSection } from "./banner-section/banner-section";
 import { ChooseUsSection } from "./choose-us-section/choose-us-section";
 import { TestimonialsSection } from './testimonials-section/testimonials-section';
+import { CategoriesSection } from "./categories-section/categories-section";
 
 @Component({
   selector: 'app-home',
-  imports: [HeroSection, ChooseUsSection, BannerSection, TestimonialsSection],
+  imports: [HeroSection, ChooseUsSection, BannerSection, TestimonialsSection, CategoriesSection],
   template: `
     <app-hero-section />
     <app-choose-us-section />
+    <app-categories-section />
     <app-banner-section />
     <app-testimonials-section />
   `,

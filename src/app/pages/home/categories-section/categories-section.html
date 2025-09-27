@@ -1,0 +1,37 @@
+    <app-section-component
+      title="Categories"
+      description="Nulla quis curabitur velit volutpat auctor bibendum consectetur sit."
+    >
+      <p-carousel
+        [value]="categories"
+        [numVisible]="4"
+        [numScroll]="1"
+        [circular]="true"
+        autoplayInterval="3000"
+        [responsiveOptions]="responsiveOptions"
+        class="grid grid-cols-3 gap-10"
+      >
+        <ng-template pTemplate="item" let-category>
+          <div
+            class="shadow-lg mx-2 rounded-[3px] bg-cover bg-center h-[350px] relative border"
+            [ngStyle]="{ 'background-image': 'url(' + category.imgUrl + ')' }"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black/40 md:from-black/60 via-black/50 md:via-black/40 to-transparent"
+            ></div>
+
+            <div class="flex flex-col items-center justify-center h-full relative z-10">
+              <img
+                [src]="category.icon"
+                [alt]="category.title"
+                class="w-15 h-15 object-cover rounded-full"
+                loading="lazy"
+              />
+              <h4 class="text-lg font-semibold leading-7 mt-4 text-white">
+                {{ category.title }}
+              </h4>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </app-section-component>

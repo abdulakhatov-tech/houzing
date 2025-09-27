@@ -11,11 +11,10 @@
     [showIndicators]="false"
     autoplayInterval="3000"
     [responsiveOptions]="responsiveOptions"
-    class="grid grid-cols-3 gap-10"
   >
     <ng-template pTemplate="item" let-testimonial>
-      <div class="h-full">
-        <div class="p-10 shadow-lg m-2 rounded-[3px] bg-white h-[65%]">
+      <div class="h-full mx-2">
+        <div class="p-10 shadow-lg rounded-[3px] bg-white h-[65%]">
           <h6 class="text-[16px] font-normal leading-6 text-[#696969] text-center">
             {{ testimonial.title }}
           </h6>

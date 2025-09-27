@@ -5,6 +5,7 @@ import {
   IFooterSection,
   ISocialMediaItem,
   IWhyChooseUsItem,
+  ICategory,
 } from '@shared/interfaces/global';
 
 export const menuItems: IMenuItem[] = [
@@ -179,5 +180,50 @@ export const testimonials: ITestimonial[] = [
     fullName: 'Ralph Edwards',
     position: 'Software Engineer',
     imgUrl: '/assets/images/testimonial-6.png',
+  },
+];
+
+export const categories: ICategory[] = [
+  {
+    _id: '1',
+    title: 'Single-Family Home',
+    slug: 'single-family',
+    icon: '/assets/icons/categories/single-family.svg',
+    imgUrl: '/assets/images/categories/single-family.png',
+  },
+  {
+    _id: '2',
+    title: 'Apartment / Condo',
+    slug: 'apartment',
+    icon: '/assets/icons/categories/single-family.svg',
+    imgUrl: '/assets/images/categories/single-family.png',
+  },
+  {
+    _id: '3',
+    title: 'Townhouse',
+    slug: 'townhouse',
+    icon: '/assets/icons/categories/single-family.svg',
+    imgUrl: '/assets/images/categories/single-family.png',
+  },
+  {
+    _id: '4',
+    title: 'Luxury Villa',
+    slug: 'villa',
+    icon: '/assets/icons/categories/single-family.svg',
+    imgUrl: '/assets/images/categories/single-family.png',
+  },
+  {
+    _id: '5',
+    title: 'Studio',
+    slug: 'studio',
+    icon: '/assets/icons/categories/single-family.svg',
+    imgUrl: '/assets/images/categories/single-family.png',
+  },
+  {
+    _id: '6',
+    title: 'Commercial Space',
+    slug: 'commercial',
+    icon: '/assets/icons/categories/single-family.svg',
+    imgUrl: '/assets/images/categories/single-family.png',
   },
 ];
