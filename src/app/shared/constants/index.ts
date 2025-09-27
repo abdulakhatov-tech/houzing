@@ -129,3 +129,4 @@ export const whyChooseUsItems: IWhyChooseUsItem[] = [
       'Interactive maps and detailed local insights help you explore schools, amenities, and lifestyle features before you decide to move.',
   },
 ];
+

@@ -53,7 +53,7 @@ import { ZardButtonComponent } from '@shared/components/button/button.component'
           <button
             z-button
             zType="outline"
-            class="bg-transparent hover:bg-transparent hover:text-white mt-15 px-10"
+            class="bg-transparent hover:bg-transparent hover:text-white mt-15 px-10 rounded-[4px]"
           >
             Read more
           </button>
