@@ -157,7 +157,6 @@ import { CommonModule } from '@angular/common';
       </div>
     </section>
   `,
-  styleUrl: './search-section.css',
 })
 export class SearchSection {
   searchForm!: FormGroup;

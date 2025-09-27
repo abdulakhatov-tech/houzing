@@ -1,0 +1,99 @@
+<section id="verify-otp">
+  <div class="container">
+    <div class="min-h-[60vh] flex flex-col items-center justify-center">
+      <h1 class="text-2xl sm:text-3xl font-bold mb-6">Verify OTP</h1>
+      <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="space-y-6 w-fit">
+        <!-- Verify OTP Field -->
+        <z-form-field class="w-full">
+          <label z-form-label zRequired for="code_1">OTP Code</label>
+          <div class="grid grid-cols-[43px_43px_43px_43px] gap-4">
+            <z-form-control>
+              <input
+                z-input
+                id="code_1"
+                type="text"
+                placeholder=""
+                formControlName="code_1"
+                [class]="{ 'border-red-500': isFieldInvalid('code_1') }"
+                (input)="handleOtpInput($event, 'code_1')"
+              />
+            </z-form-control>
+
+            <z-form-control>
+              <input
+                z-input
+                id="code_2"
+                type="text"
+                placeholder=""
+                formControlName="code_2"
+                [class]="{ 'border-red-500 ': isFieldInvalid('code_2') }"
+                (input)="handleOtpInput($event, 'code_2')"
+              />
+            </z-form-control>
+
+            <z-form-control>
+              <input
+                z-input
+                id="code_3"
+                type="text"
+                placeholder=""
+                formControlName="code_3"
+                [class]="{ 'border-red-500 ': isFieldInvalid('code_3') }"
+                (input)="handleOtpInput($event, 'code_3')"
+              />
+            </z-form-control>
+
+            <z-form-control>
+              <input
+                z-input
+                id="code_4"
+                type="text"
+                placeholder=""
+                formControlName="code_4"
+                [class]="{ 'border-red-500': isFieldInvalid('code_4') }"
+                (input)="handleOtpInput($event, 'code_4')"
+              />
+            </z-form-control>
+          </div>
+
+          <ng-container *ngIf="!isOTPExpired(); else expiredOTP">
+            <div class="flex items-center justify-center gap-1">
+              <strong>{{ formattedTime() }}</strong
+              >-<span>({{ otpCode() }})</span>
+            </div>
+          </ng-container>
+          <ng-template #expiredOTP>
+            <span class="text-center">Expired OTP</span>
+          </ng-template>
+        </z-form-field>
+
+        <!-- Action Buttons -->
+        <ng-container *ngIf="!isOTPExpired(); else verifyBtn">
+          <button z-button zType="default" type="submit" [disabled]="isSubmitting()" class="w-full">
+            {{ isSubmitting() ? 'Verifying OTP...' : 'Verify OTP' }}
+          </button>
+        </ng-container>
+
+        <ng-template #verifyBtn>
+          <button
+            z-button
+            zType="default"
+            type="button"
+            [disabled]="isResending()"
+            (click)="handleResent()"
+            class="w-full"
+          >
+            {{ isResending() ? 'Resending OTP...' : 'Resend OTP' }}
+          </button>
+        </ng-template>
+
+        <p class="text-center text-sm text-gray-600">
+          <span>Need help?</span>
+          <a routerLink="/auth/forgot-password" class="text-secondary-blue underline ml-1">
+            <span>Forgot password</span>
+          </a>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>

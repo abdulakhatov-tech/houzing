@@ -1,6 +1,10 @@
-import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { toast } from 'ngx-sonner';
 import { Router, RouterLink } from '@angular/router';
 import { Component, inject, signal } from '@angular/core';
+import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+
+import { formErrorHandler } from '@shared/utils/helpers';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ZardFormModule } from '@shared/components/form/form.module';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
@@ -18,53 +22,13 @@ interface FormData {
     ZardFormModule,
     RouterLink,
   ],
-  template: `
-    <section id="sign-in">
-      <div class="container">
-        <div class="pt-10 sm:pt-15 md:pt-20 mb-24 flex flex-col items-center">
-          <h1 class="text-2xl sm:text-3xl font-bold mb-6">Forgot Password</h1>
-          <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="space-y-6 max-w-md w-full">
-            <!-- Email Field -->
-            <z-form-field class="w-full">
-              <label z-form-label zRequired for="email">Email</label>
-              <z-form-control [errorMessage]="isFieldInvalid('email') ? getEmailError() : ''">
-                <input
-                  z-input
-                  id="email"
-                  type="email"
-                  placeholder="john.doe@example.com"
-                  formControlName="email"
-                />
-              </z-form-control>
-            </z-form-field>
-
-            <!-- Action Buttons -->
-            <button
-              z-button
-              zType="default"
-              type="submit"
-              [disabled]="isSubmitting()"
-              class="w-full"
-            >
-              {{ isSubmitting() ? 'Submitting...' : 'Submit' }}
-            </button>
-
-            <p class="text-center">
-              Remember Password?
-              <a routerLink="/auth/sign-in" class="text-secondary-blue underline">Sign in</a>
-            </p>
-          </form>
-        </div>
-      </div>
-    </section>
-  `,
-  styleUrl: './forgot-password.css',
+  templateUrl: './forgot-password.html',
 })
 export class ForgotPassword {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
-  readonly showSuccess = signal(false);
   readonly isSubmitting = signal(false);
 
   readonly form = this.fb.nonNullable.group({
@@ -95,27 +59,26 @@ export class ForgotPassword {
 
     this.isSubmitting.set(true);
 
-    await this.simulateApiCall();
+    const { email } = this.form.getRawValue();
 
-    this.isSubmitting.set(false);
-    this.showSuccess.set(true);
-    // this.form.reset();
+    this.authService.forgotPassword({ email }).subscribe({
+      next: (response) => {
+        this.form.reset();
 
+        toast.success(response.message);
 
-    console.log('Form submitted:', this.form.getRawValue());
+        this.router.navigate(['/auth/verify-otp']);
+      },
+      error: (error) => {
+        this.isSubmitting.set(false);
 
-    setTimeout(() => {
-      this.showSuccess.set(false);
-      this.router.navigate(['/auth/verify-otp'])
-    }, 5000);
-  }
-
-  resetForm(): void {
-    this.form.reset();
-    this.showSuccess.set(false);
-  }
-
-  private simulateApiCall(): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, 1000));
+        formErrorHandler({
+          message: error?.error?.message,
+          duration: 8000, // optional override
+          title: 'Forgot Password Error', // optional
+        });
+      },
+      complete: () => this.isSubmitting.set(false),
+    });
   }
 }

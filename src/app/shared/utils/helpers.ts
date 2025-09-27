@@ -1,3 +1,4 @@
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { toast } from 'ngx-sonner';
 
 export interface FormErrorOptions {
@@ -45,3 +46,17 @@ export function formErrorHandler({
     duration
   });
 }
+
+export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+
+  if (password && confirmPassword && password.value !== confirmPassword.value) {
+    confirmPassword.setErrors({ passwordMismatch: true });
+  } else {
+    if (confirmPassword?.hasError('passwordMismatch')) {
+      confirmPassword.setErrors(null); // clear only passwordMismatch error
+    }
+  }
+  return null;
+};

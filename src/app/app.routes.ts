@@ -7,6 +7,7 @@ import { NotFound } from './pages/not-found/not-found';
 import { VerifyOtp } from './pages/auth/verify-otp/verify-otp';
 import { ForgotPassword } from './pages/auth/forgot-password/forgot-password';
 import { AuthGuard } from '@shared/utils/auth.guard';
+import { ResetPassword } from './pages/auth/reset-password/reset-password';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,11 @@ export const routes: Routes = [
         component: VerifyOtp,
         title: 'Houzing | Verify OTP',
       },
+      {
+        path: 'reset-password',
+        component: ResetPassword,
+        title: "Houzing | Reset Password"
+      }
     ],
   },
   {
