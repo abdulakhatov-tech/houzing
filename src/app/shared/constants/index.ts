@@ -6,6 +6,7 @@ import {
   ISocialMediaItem,
   IWhyChooseUsItem,
   ICategory,
+  IProfileTab,
 } from '@shared/interfaces/global';
 
 export const menuItems: IMenuItem[] = [
@@ -362,5 +363,38 @@ export const productsList: IProperty[] = [
     price: 3000,
     oldPrice: 3300,
     image: '/assets/images/product-1.png',
+  },
+];
+
+export const profileTabs: IProfileTab[] = [
+  {
+    _id: '1',
+    title: 'Users',
+    roles: ['admin'],
+    path: 'users',
+  },
+  {
+    _id: '2',
+    title: 'Products',
+    roles: ['admin', 'seller'],
+    path: 'products',
+  },
+  {
+    _id: '3',
+    title: 'Orders',
+    roles: ['admin', 'seller', 'customer'],
+    path: 'users',
+  },
+  {
+    _id: '4',
+    title: 'Location',
+    roles: ['admin', 'seller', 'customer'],
+    path: 'location',
+  },
+  {
+    _id: '5',
+    title: 'Contact',
+    roles: ['admin', 'seller', 'customer'],
+    path: 'location',
   },
 ];

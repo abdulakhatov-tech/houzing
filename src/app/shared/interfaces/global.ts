@@ -69,3 +69,20 @@ export interface ICategory {
   icon: string;
   imgUrl: string;
 }
+
+export interface IUser {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+}
+
+export type TUserRole = 'admin' | 'customer' | 'seller'
+
+export interface IProfileTab {
+  _id: string;
+  title: string;
+  roles: TUserRole[];
+  path: string;
+}

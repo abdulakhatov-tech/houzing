@@ -30,11 +30,39 @@
       <!-- User Icon -->
       <ng-container *ngIf="!authService.isAuthenticated; else loggedIn">
         <a routerLink="/auth/sign-in">
-          <button class="text-white" z-button zType="destructive">Login</button>
+          <button class="text-white" z-button zType="destructive">Sign In</button>
         </a>
       </ng-container>
       <ng-template #loggedIn>
-        <img src="assets/icons/user.svg" alt="User" class="w-5 md:w-6 h-5 md:h-6" />
+        <div>
+          <img
+            src="assets/icons/user.svg"
+            alt="User"
+            class="w-5 md:w-6 h-5 md:h-6"
+            z-dropdown
+            [zDropdownMenu]="menu"
+          />
+          <z-dropdown-menu-content #menu="zDropdownMenuContent" class="w-56">
+            <z-dropdown-menu-label>My Account</z-dropdown-menu-label>
+
+            <z-dropdown-menu-item (click)="onProfile()">
+              Profile
+              <z-dropdown-menu-shortcut>⇧⌘P</z-dropdown-menu-shortcut>
+            </z-dropdown-menu-item>
+
+            <z-dropdown-menu-item>
+              Settings
+              <z-dropdown-menu-shortcut>⌘S</z-dropdown-menu-shortcut>
+            </z-dropdown-menu-item>
+
+            <z-divider zSpacing="sm" class="-mx-1"></z-divider>
+
+            <z-dropdown-menu-item (click)="onLogout()" class="hover:bg-red-500 hover:text-white flex items-center justify-between">
+              Log out
+              <span>⇧⌘Q</span>
+            </z-dropdown-menu-item>
+          </z-dropdown-menu-content>
+        </div>
       </ng-template>
     </nav>
   </div>

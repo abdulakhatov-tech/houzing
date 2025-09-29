@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import {
   AuthResponse,
+  BaseResponse,
   ForgotPasswordFormData,
   ForgotPasswordResponse,
   ResetPasswordPayload,
@@ -15,10 +16,13 @@ import {
   VerifyOtpPayload,
   VerifyOtpResponse,
 } from '@shared/interfaces/auth';
+import { IUser } from '@shared/interfaces/global';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private http: HttpClient) {}
+
+  readonly isLoggedIn = signal<boolean>(!!localStorage.getItem('token'));
 
   signUp(payload: Omit<SignUpFormData, 'confirmPassword'>): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/sign-up`, payload).pipe(
@@ -71,10 +75,18 @@ export class AuthService {
     );
   }
 
-  signOut(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('user');
+  signOut(): Observable<BaseResponse> {
+    const userJson = localStorage.getItem('user');
+    const userId = userJson ? JSON.parse(userJson)._id : null;
+
+    return this.http
+      .post<BaseResponse>(`${environment.apiUrl}/auth/sign-out`, { userId })
+      .pipe(
+        tap(() => {
+          // Always clear client session, even if API call fails
+          this.clearSession();
+        })
+      );
   }
 
   getToken(): string | null {
@@ -88,12 +100,19 @@ export class AuthService {
   hasRole(role: 'customer' | 'seller' | 'admin'): boolean {
     const token = this.getToken();
 
-    if(!token) return false;
+    if (!token) return false;
 
     const payload = JSON.parse(atob(token.split('.')[1]));
 
-    return payload.roles.includes(role)
+    return payload.roles.includes(role);
 
     // <button *ngIf="authService.hasRole('admin')">Admin Panel</button>
+  }
+
+  private clearSession(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    this.isLoggedIn.set(false);
   }
 }
