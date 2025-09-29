@@ -4,7 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -40,18 +39,18 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Brand Colors */
-  --primary-blue: #0d263b;   /* Dark Navy Blue - Navbar, Footer */
+  --primary-blue: #0d263b; /* Dark Navy Blue - Navbar, Footer */
   --secondary-blue: #0061df; /* Bright Blue - Buttons, Highlights */
-  --light-blue: #00aaff;     /* Accent Blue - Optional hover states */
+  --light-blue: #00aaff; /* Accent Blue - Optional hover states */
 
   /* Neutrals */
   --white: #ffffff;
   --black: #000000;
-  --gray-100: #f5f5f5;       /* Background sections */
-  --gray-200: #e5e5e5;       /* Borders, dividers */
-  --gray-400: #b0b0b0;       /* Muted text */
-  --gray-600: #707070;       /* Body text */
-  --gray-800: #333333;       /* Headings */
+  --gray-100: #f5f5f5; /* Background sections */
+  --gray-200: #e5e5e5; /* Borders, dividers */
+  --gray-400: #b0b0b0; /* Muted text */
+  --gray-600: #707070; /* Body text */
+  --gray-800: #333333; /* Headings */
 
   /* Status Colors (Optional for UI states) */
   --success-green: #28a745;
@@ -92,7 +91,6 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-
 
 @theme inline {
   --color-background: var(--background);
@@ -151,7 +149,7 @@
   --color-warning-yellow: var(--warning-yellow);
   --color-danger-red: var(--danger-red);
 }
- 
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -163,4 +161,81 @@
 
 .container {
   @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* --------------- Carousel Indicator style --------------- */
+
+.p-carousel-indicator-list {
+  align-items: center !important;
+}
+
+.p-carousel-indicator-list .p-carousel-indicator-button {
+  width: 12px !important;
+  height: 12px !important;
+  background-color: var(--color-secondary-blue) !important;
+}
+
+.p-carousel-indicator-list .p-carousel-indicator-active .p-carousel-indicator-button {
+  width: 13px !important;
+  height: 13px !important;
+  background-color: var(--color-white) !important;
+  border: 1px solid var(--color-secondary-blue) !important;
+}
+
+/* --------------- Carousel Buttons style --------------- */
+
+.p-carousel-content-container {
+  position: relative !important;
+  /* padding: 0px 5px; */
+}
+
+.p-carousel-next-button,
+.p-carousel-prev-button {
+  border-radius: 50%;
+  background-color: var(--color-white) !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.p-button-text.p-button-secondary:not(:disabled):hover {
+  background-color: #f5f5f5 !important;
+}
+
+.p-carousel-next-button svg,
+.p-carousel-prev-button svg {
+  color: black !important;
+}
+
+@media screen and (max-width: 428px) {
+  .p-carousel-content-container {
+    padding: 0px;
+  }
+
+  .p-carousel-next-button,
+  .p-carousel-prev-button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .p-carousel-prev-button {
+    position: absolute !important;
+    bottom: 6px;
+    left: 10px;
+    z-index: 999;
+  }
+
+  .p-carousel-next-button {
+    position: absolute !important;
+    bottom: 6px;
+    right: 10px;
+    z-index: 999;
+  }
+
+  .p-carousel-next-button svg,
+  .p-carousel-prev-button svg {
+    width: 14px;
+    height: 14px;
+  }
 }

@@ -7,13 +7,13 @@
         [numVisible]="4"
         [numScroll]="1"
         [circular]="true"
-        autoplayInterval="3000"
+        autoplayInterval="5000"
         [responsiveOptions]="responsiveOptions"
         class="grid grid-cols-3 gap-10"
       >
         <ng-template pTemplate="item" let-category>
           <div
-            class="shadow-lg mx-2 rounded-[3px] bg-cover bg-center h-[350px] relative border"
+            class="shadow-lg md:mx-2 rounded-[3px] bg-cover bg-center h-[350px] relative border"
             [ngStyle]="{ 'background-image': 'url(' + category.imgUrl + ')' }"
           >
             <div

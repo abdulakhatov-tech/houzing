@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { Component, computed, signal } from '@angular/core';
+
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
-import { Router, RouterModule } from '@angular/router';
 import { SearchSection } from './pages/home/search-section/search-section';
-import { CommonModule } from '@angular/common';
-import { ZardToastComponent } from "@shared/components/toast/toast.component";
+import { ZardToastComponent } from '@shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-root',

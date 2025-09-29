@@ -7,6 +7,7 @@ import { SectionComponent } from '../section-component/section-component';
 
 @Component({
   selector: 'app-products-carousel',
+  standalone: true,
   imports: [CarouselModule, SectionComponent, ProductCard],
   templateUrl: './products-carousel.html',
 })

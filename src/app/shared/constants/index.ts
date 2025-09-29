@@ -101,6 +101,18 @@ export const heroSectionItems: IProperty[] = [
     oldPrice: 6000,
     image: '/assets/images/hero-bg-2.png',
   },
+  {
+    _id: '3',
+    title: 'Luxury Downtown Condo',
+    address: '78 Market Street, San Francisco, CA',
+    beds: 2,
+    baths: 2,
+    garage: 1,
+    area: 1050,
+    price: 4890,
+    oldPrice: 5200,
+    image: '/assets/images/hero-bg-3.png',
+  },
 ];
 
 export const whyChooseUsItems: IWhyChooseUsItem[] = [

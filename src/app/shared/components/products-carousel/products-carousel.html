@@ -4,12 +4,12 @@
     [numVisible]="3"
     [numScroll]="1"
     [circular]="true"
-    autoplayInterval="3000"
+    autoplayInterval="5000"
     [responsiveOptions]="responsiveOptions"
     class="grid grid-cols-3 gap-10"
   >
     <ng-template pTemplate="item" let-product>
-      <div class="mx-2">
+      <div class="md:mx-2">
         <app-product-card [product]="product" />
       </div>
     </ng-template>

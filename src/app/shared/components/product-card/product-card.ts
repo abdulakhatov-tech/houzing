@@ -4,6 +4,7 @@ import { IProperty } from '@shared/interfaces/global';
 
 @Component({
   selector: 'app-product-card',
+  standalone: true,
   imports: [CommonModule],
   template: `
     <div class="border">

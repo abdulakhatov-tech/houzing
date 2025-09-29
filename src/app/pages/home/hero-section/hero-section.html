@@ -1,0 +1,67 @@
+<section id="hero-section">
+  <p-carousel
+    [value]="heroSectionItems"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    autoplayInterval="5000"
+    class="grid grid-cols-3 gap-10"
+    showNavigators="false"
+  >
+    <ng-template pTemplate="item" let-heroSectionItem>
+      <div
+        class="bg-cover bg-center relative"
+        [ngStyle]="{ 'background-image': 'url(' + heroSectionItem.image + ')' }"
+      >
+        <!-- Shadow overlay -->
+        <div
+          class="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black/70 md:from-black/60 via-black/50 md:via-black/40 to-transparent"
+        ></div>
+
+        <div class="container relative z-10">
+          <div
+            class="flex flex-col justify-center items-center text-white h-[70vh] md:h-[60vh] gap-2"
+          >
+            <h1
+              class="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[36px] xl:text-[44px] leading-12 space-[-2%] font-bold text-center"
+            >
+              {{ heroSectionItem.title }}
+            </h1>
+            <p class="text-[16px] leading-6 font-normal text-center">
+              {{ heroSectionItem.address }}
+            </p>
+
+            <ul class="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 mt-6">
+              <li class="flex flex-col items-center gap-[2px]">
+                <img src="/assets/icons/bed.svg" alt="bed" />
+                <span>{{ heroSectionItem.beds }} beds</span>
+              </li>
+              <li class="flex flex-col items-center gap-[2px]">
+                <img src="/assets/icons/bath.svg" alt="bath" />
+                <span>{{ heroSectionItem.baths }} baths</span>
+              </li>
+              <li class="flex flex-col items-center gap-[2px]">
+                <img src="/assets/icons/car.svg" alt="garage" />
+                <span>{{ heroSectionItem.garage }} garages</span>
+              </li>
+              <li class="flex flex-col items-center gap-[2px]">
+                <img src="/assets/icons/ruler.svg" alt="area" />
+                <span>{{ heroSectionItem.area }} Sq Ft</span>
+              </li>
+            </ul>
+
+            <strong>{{ heroSectionItem.price | currency : 'USD' : 'symbol' : '1.0-0' }}/mo</strong>
+
+            <button
+              z-button
+              zType="outline"
+              class="bg-transparent hover:bg-transparent hover:text-white mt-15 px-10 rounded-[4px]"
+            >
+              Read more
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</section>
