@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, computed } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { Component, inject, computed } from '@angular/core';
 
 import {
   ZardTabComponent,
@@ -27,7 +27,7 @@ import { IProfileTab, TUserRole } from '@shared/interfaces/global';
 export class ProfileTabs {
   private readonly router = inject(Router);
 
-  readonly userRole: TUserRole = 'seller';
+  readonly userRole: TUserRole = 'admin';
   readonly profileTabs: IProfileTab[] = profileTabs;
 
   readonly visibleTabs = computed(() =>

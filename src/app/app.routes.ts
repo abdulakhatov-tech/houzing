@@ -13,15 +13,14 @@ import { Contacts } from './pages/contacts/contacts';
 import { NotFound } from './pages/not-found/not-found';
 import { Users } from './pages/profile/tabs/users/users';
 import { ResetPassword } from './pages/auth/reset-password/reset-password';
+import { ProfileOrders } from './pages/profile/tabs/profile-orders/profile-orders';
+import { ProfileProducts } from './pages/profile/tabs/profile-products/profile-products';
+import { ProfileLocation } from './pages/profile/tabs/profile-location/profile-location';
+import { ProfileCategories } from './pages/profile/tabs/profile-categories/profile-categories';
 
 // Utility functions
 import { NoAuthGuard } from '@shared/utils/no-auth';
 import { AuthGuard } from '@shared/utils/auth.guard';
-import { ProfileProducts } from './pages/profile/tabs/profile-products/profile-products';
-import { ProfileOrders } from './pages/profile/tabs/profile-orders/profile-orders';
-import { ProfileCategories } from './pages/profile/tabs/profile-categories/profile-categories';
-import { ProfileLocation } from './pages/profile/tabs/profile-location/profile-location';
-import { ProfileContact } from './pages/profile/tabs/profile-contact/profile-contact';
 
 export const routes: Routes = [
   {
@@ -103,11 +102,6 @@ export const routes: Routes = [
         component: ProfileLocation,
         title: 'Houzing | Location'
       },
-      {
-        path: 'contact',
-        component: ProfileContact,
-        title: 'Houzing | Contact'
-      }
     ]
   },
   // Redirect or 404 handling

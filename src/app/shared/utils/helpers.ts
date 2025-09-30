@@ -60,3 +60,14 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
   }
   return null;
 };
+
+export function formatUzPhone(raw: string | null | undefined): string {
+  if (!raw) return '';
+
+  const digits = raw.replace(/\D/g, ''); // keep only numbers
+  // Match: 998995289896 -> +998 99 528 98 96
+  const match = digits.match(/^(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})$/);
+  return match
+    ? `+(${match[1]}) ${match[2]} ${match[3]}-${match[4]}-${match[5]}`
+    : raw;
+}

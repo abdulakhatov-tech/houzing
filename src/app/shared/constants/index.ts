@@ -391,10 +391,4 @@ export const profileTabs: IProfileTab[] = [
     roles: ['admin', 'seller', 'customer'],
     path: 'location',
   },
-  {
-    _id: '5',
-    title: 'Contact',
-    roles: ['admin', 'seller', 'customer'],
-    path: 'location',
-  },
 ];

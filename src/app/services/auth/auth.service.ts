@@ -1,26 +1,27 @@
-import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { inject, Injectable, signal } from '@angular/core';
 
-import { environment } from '@environments/environment';
 import {
   AuthResponse,
   BaseResponse,
-  ForgotPasswordFormData,
-  ForgotPasswordResponse,
-  ResetPasswordPayload,
-  ResetPasswordResponse,
   SignInFormData,
   SignUpFormData,
   VerifyOtpPayload,
   VerifyOtpResponse,
+  ResetPasswordPayload,
+  ResetPasswordResponse,
+  ForgotPasswordResponse,
+  ForgotPasswordFormData,
 } from '@shared/interfaces/auth';
-import { IUser } from '@shared/interfaces/global';
+import { MeService } from '../me/me.service';
+import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private http: HttpClient) {}
+  readonly meService =inject(MeService)
 
   readonly isLoggedIn = signal<boolean>(!!localStorage.getItem('token'));
 
@@ -30,7 +31,6 @@ export class AuthService {
         // Store tokens
         localStorage.setItem('token', res?.data?.accessToken!);
         localStorage.setItem('refreshToken', res?.data?.refreshToken!);
-        localStorage.setItem('user', JSON.stringify(res?.data?.user!));
       })
     );
   }
@@ -41,7 +41,6 @@ export class AuthService {
         // Store tokens
         localStorage.setItem('token', res?.data?.accessToken!);
         localStorage.setItem('refreshToken', res?.data?.refreshToken!);
-        localStorage.setItem('user', JSON.stringify(res?.data?.user!));
       })
     );
   }
@@ -76,16 +75,33 @@ export class AuthService {
   }
 
   signOut(): Observable<BaseResponse> {
-    const userJson = localStorage.getItem('user');
-    const userId = userJson ? JSON.parse(userJson)._id : null;
+    return this.meService.me.pipe(
+    switchMap((user) => {
+      if (!user?._id) return of({ message: 'No user logged in' } as BaseResponse);
+
+      return this.http.post<BaseResponse>(`${environment.apiUrl}/auth/sign-out`, {
+        userId: user._id,
+      }).pipe(
+        tap(() => this.clearSession())
+      );
+    })
+  );
+  }
+
+  refreshToken(): Observable<string | undefined> {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) return throwError(() => new Error('No refresh token'));
 
     return this.http
-      .post<BaseResponse>(`${environment.apiUrl}/auth/sign-out`, { userId })
+      .post<AuthResponse>(`${environment.apiUrl}/auth/refresh-token`, { refreshToken })
       .pipe(
-        tap(() => {
-          // Always clear client session, even if API call fails
-          this.clearSession();
-        })
+        tap((res) => {
+          if (res.data?.accessToken && res.data?.refreshToken) {
+            localStorage.setItem('token', res.data.accessToken);
+            localStorage.setItem('refreshToken', res.data.refreshToken);
+          }
+        }),
+        map((res) => res?.data?.accessToken)
       );
   }
 

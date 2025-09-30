@@ -75,10 +75,13 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
-  role: string;
+  role: TUserRole;
+  profilePhoto: string;
+  phoneNumber: string;
+  description?: string;
 }
 
-export type TUserRole = 'admin' | 'customer' | 'seller'
+export type TUserRole = 'admin' | 'customer' | 'seller';
 
 export interface IProfileTab {
   _id: string;

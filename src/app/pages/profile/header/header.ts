@@ -1,37 +1,61 @@
-import { Component } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import { IUser } from '@shared/interfaces/global';
+import { formatUzPhone } from '@shared/utils/helpers';
+import { MeService } from 'src/app/services/me/me.service';
 
 @Component({
   selector: 'app-profile-header',
-  imports: [],
+  imports: [CommonModule],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex flex-col gap-1 mb-6  mt-6 md:mt-8">
-      <h1 class="text-center text-[26px] font-semibold">Islom Abdulakhatov</h1>
-      <h3 class="text-center text-xl font-semibold">Software Engineer</h3>
+    <div class="flex flex-col gap-1 mb-6  mt-6 md:mt-8" *ngIf="vm$ | async as vm">
+      <h1 class="text-center text-xl md:text-[26px] font-semibold">
+        {{ vm?.user?.firstName ?? '' }} {{ vm?.user?.lastName ?? '' }}
+      </h1>
+      <h3 class="text-center text-lg md:text-xl font-semibold">
+        {{ vm?.user?.role ?? 'No Role' | titlecase }}
+      </h3>
       <ul class="flex flex-col md:flex-row items-center md:gap-3 justify-center mb-1">
-        <li>
+        <li *ngIf="vm?.formattedPhone">
           Tel:
-          <a href="tel:+998995289896" class="text-secondary-blue text-[16px] font-medium"
-            >+998995289896</a
+          <a
+            [href]="'tel:' + vm?.user?.phoneNumber"
+            class="text-secondary-blue text-[16px] font-medium"
+            >{{ vm?.formattedPhone }}</a
           >
         </li>
-        <span class="hidden md:block">|</span>
+        <li>
+          <span class="hidden md:block" *ngIf="vm?.formattedPhone && vm?.user?.email">|</span>
+        </li>
         <li>
           Email:
           <a
-            href="mailto:islomabdulakhatov@gmail.com"
+            [href]="'mailto:' + vm?.user?.email"
             class="text-secondary-blue text-[16px] font-medium"
-            >islomabdulakhatov@gmail.com</a
           >
+            {{ vm?.user?.email ?? 'No Email' }}
+          </a>
         </li>
       </ul>
+
       <p class="text-base text-center max-w-4xl mx-auto font-sans">
-        I’m Islom Abdulakhatov, a software engineer who loves crafting modern web applications that
-        are fast, reliable, and easy to use. Over the years I’ve focused on building scalable
-        e-commerce, CRM, and ERP platforms with frameworks like React, Next.js, and Node.js, always
-        paying close attention to clean architecture and user experience.
+        {{ vm?.user?.description ?? 'No Description' }}
       </p>
     </div>
   `,
 })
-export class ProfileHeader {}
+export class ProfileHeader {
+  readonly meService = inject(MeService);
+
+  /** Strongly typed observable for current user */
+  readonly vm$: Observable<{ user: IUser; formattedPhone: string }> = this.meService.me.pipe(
+    map((user) => ({
+      user: user!,
+      formattedPhone: formatUzPhone(user?.phoneNumber),
+    }))
+  );
+}
